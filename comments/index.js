@@ -14,7 +14,7 @@ app.get('/posts/:id/comments', (req, res) => {
     res.send(commentsByPostId[req.params.id] || []);
 });
 
-app.post('/posts/:id/comments', (req, res) => {
+app.post('/posts/:id/comments', async (req, res) => {
     const commentId = randomBytes(4).toString('hex');
 
     const { content } = req.body;
@@ -24,20 +24,20 @@ app.post('/posts/:id/comments', (req, res) => {
 
     commentsByPostId[req.params.id] = comments;
 
-    try {
-        axios.post('http://localhost:8080/events/', {
-            type: 'commentCreated',
-            data: { id: commentId, content, postId: req.params.id }
-        });
-        res.status(201).send(comments);
-
-    } catch (error) {
-        console.log(error.message);
-        res.send("error"); // Coerces error to 404
-    }
+    await axios.post("http://localhost:4005/events", {
+        type: 'CommentCreated',
+        data: { id: commentId, content, postId: req.params.id },
+    }).catch((err) => {
+        console.log(err.message);
+    });
 
 
 });
+
+// app.post('/events', function (req, res) {
+//     console.log('event received');
+// }
+// );
 
 app.listen(4001, () => {
     console.log('listening on 4001');
