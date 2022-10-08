@@ -23,7 +23,7 @@ app.post('/posts/:id/comments', async (req, res) => {
     comments.push({ id: commentId, content });
 
     commentsByPostId[req.params.id] = comments;
-
+    // This sends or dispatches an event 
     await axios.post("http://localhost:4005/events", {
         type: 'CommentCreated',
         data: { id: commentId, content, postId: req.params.id },
@@ -33,7 +33,9 @@ app.post('/posts/:id/comments', async (req, res) => {
 
 
 });
-
+/**
+ * If someone/server (e.g. event bus) sends a post 
+ * event on port 4001 then this listens to that.*/
 app.post('/events', function (req, res) {
     console.log('Received Event ', req.body.type);
     res.send({});
