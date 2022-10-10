@@ -11,8 +11,7 @@ app.get('/posts', (req, res) => {
     res.send(posts);
 });
 
-app.post('/events', (req, res) => {
-    const { type, data } = req.body;
+const handleEvents = (type, data) => {
     if (type === 'PostCreated') {
         const { id, title } = data;
 
@@ -40,13 +39,28 @@ app.post('/events', (req, res) => {
         comment.content = content;
     }
 
-    console.log(posts);
+};
+
+
+app.post('/events', (req, res) => {
+    const { type, data } = req.body;
+
+    const handleEvent(type, data);
+
     res.send({ status: "OK" });
 
 });
 
 app.listen(4002, (req, res) => {
     console.log('listening on http://localhost:4002');
+
+    await axios.get('http://localhost:4005/events');
+    for (const event of res.data) {
+        console.log('processing event: ', event.type);
+        handleEvents(event.type, event.data);
+    }
+
+
 });
 
 
