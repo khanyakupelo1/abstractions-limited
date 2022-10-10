@@ -1,21 +1,18 @@
 const express = require('express');
-const axios = require('axios');
 const bodyParser = require('body-parser');
-const { response } = require('express');
+const axios = require('axios');
 
 const app = express();
 app.use(bodyParser.json());
 
-
-// This is a listener
-app.post('/events', (req, res) => {
+app.post('/events', async (req, res) => {
     const { type, data } = req.body;
 
     if (type === 'CommentCreated') {
-        const status = data.content.includes('orange') ? 'rejected' : 'accepted';
+        const status = data.content.includes('orange') ? 'rejected' : 'approved';
 
-        axios.post('localhost://localhost:4002/events', {
-            type: 'commentModerated',
+        await axios.post('http://localhost:4005/events', {
+            type: 'CommentModerated',
             data: {
                 id: data.id,
                 postId: data.postId,
@@ -24,9 +21,10 @@ app.post('/events', (req, res) => {
             }
         });
     }
+
     res.send({});
 });
 
 app.listen(4003, () => {
-    console.log('listening on http://localhost:4003');
+    console.log('Listening on 4003');
 });
