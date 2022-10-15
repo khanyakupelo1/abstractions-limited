@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v1 #bucket for find Pod object
 kind: Pod
 metadata:
   name: posts
