@@ -1,0 +1,8 @@
+apiVersion: v1 #bucket for find Pod object
+kind: Pod
+metadata:
+  name: posts
+spec:
+  containers:
+    - name: post
+      image: kupelos/posts:0.0.1
