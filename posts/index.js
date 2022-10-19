@@ -42,6 +42,6 @@ app.post('/events', function (req, res) {
 
 
 app.listen(4000, () => {
-    console.log('version 20');
+    console.log('Well done! You know k8s');
     console.log('Listening on 4000');
 });
