@@ -19,7 +19,7 @@ metadata:
   labels:
     app: posts
 spec:
-  selector:
+  selector: # what pods will the posts-clusterip-service service allow access to?
     app: posts
   type: ClusterIP
   ports:
