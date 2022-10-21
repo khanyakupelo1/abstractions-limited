@@ -23,7 +23,7 @@ metadata:
   labels:
     app: event-bus
 spec:
-  selector:
+  selector: # what pods will the event-bus service allow access to?
     app: event-bus
   type: ClusterIP
   ports:
