@@ -1,5 +1,5 @@
 # abstractions-limited
-it’s about building microservices for a new Primary Co-operative based in the eastern cape applications using modern tooling like Docker, Kubernetes, and React.
+It’s about building microservices for a new `Primary Co-operative` based in the `Eastern Cape` using modern tooling like Docker, Kubernetes, and React.
 
 
     
